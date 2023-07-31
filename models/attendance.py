@@ -12,3 +12,6 @@ class AttendanceModel(db.Model):
     # relation ship to -> visitor, emloyee, appointment
     visitor_id = db.Column(db.Integer, db.ForeignKey("visitors.id"))
     visitor = db.relationship("VisitorModel", back_populates="attendance")
+
+    employee_id = db.Column(db.Integer, db.ForeignKey("employee.id"))
+    employee = db.relationship("EmployeeModel", back_populates="attendance")

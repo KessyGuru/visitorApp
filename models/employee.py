@@ -18,3 +18,4 @@ class EmployeeModel(db.Model):
     # relation ship with appointment
     appointment = db.relationship("AppointmentModel", back_populates="employee")
 
+    attendance = db.relationship("AttendanceModel", back_populates="employee")

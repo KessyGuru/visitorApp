@@ -9,7 +9,7 @@ class AppointmentModel(db.Model):
     desc = db.Column(db.Text, nullable=True)
     appointment_date = db.Column(db.DateTime, nullable=False)
     location = db.Column(db.String(255),nullable=False)
-    appointment_via = db.Column(db.String(255), nullable=False)
+    appointment_via = db.Column(db.String(255), nullable=True)
     created_at = db.Column(db.DateTime(timezone=True), server_default=func.now())
     updated_at = db.Column(db.DateTime(timezone=True), onupdate=func.now())
 

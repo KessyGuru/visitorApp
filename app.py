@@ -1,5 +1,5 @@
 import os
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from flask_smorest import Api
 from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
@@ -7,6 +7,12 @@ from flask_migrate import Migrate
 
 from db import db
 import models
+
+from resources.visitors import blp as VisitorBlueprint
+from resources.attendances import blp as AttendanceBlueprint
+from resources.employee import blp as EmployeeBlueprint
+from resources.appointments import blp as AppointmentBlueprint
+from resources.preview import blp as PreviewBlueprint
 
 def create_app(db_url=None):
 
@@ -21,14 +27,23 @@ def create_app(db_url=None):
     app.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-dist/"
     app.config["SQLALCHEMY_DATABASE_URI"]= db_url or os.getenv("DATABASE_URL", "sqlite:///data.db")
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    # app.register_blueprint(PreviewBlueprint)
     db.init_app(app)
     migrate = Migrate(app, db)
     api = Api(app)
 
-    with app.app_context():
-        db.create_all()
+    # with app.app_context():
+    #     db.create_all()
 
-
+    api.register_blueprint(VisitorBlueprint)
+    api.register_blueprint(AttendanceBlueprint)
+    api.register_blueprint(EmployeeBlueprint)
+    api.register_blueprint(AppointmentBlueprint)
     return app
 
-create_app()
+app = create_app()
+
+
+@app.route("/preview")
+def get():
+    return render_template("base.html")
