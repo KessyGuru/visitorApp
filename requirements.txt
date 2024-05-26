@@ -6,3 +6,4 @@ flask-SQLAlchemy
 flask-jwt-extended
 passlib
 flask-migrate
+flask-wtf

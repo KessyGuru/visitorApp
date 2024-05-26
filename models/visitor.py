@@ -30,10 +30,10 @@ class VisitorModel(db.Model):
 
     # other relations
     # appointment 
-    appointments = db.relationship("AppointmentModel", back_populates="visitor", lazy="dynamic")
+    appointments = db.relationship("AppointmentModel", backref="visitor", lazy="dynamic")
 
     # attendance
-    attendance = db.relationship("AttendanceModel", back_populates="visitor", lazy="dynamic")
+    attendance = db.relationship("AttendanceModel", backref="visitor", lazy="dynamic")
 
 
 

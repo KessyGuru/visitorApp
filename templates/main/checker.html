@@ -1,0 +1,40 @@
+<table id="example-11" class="display table table-hover table-condensed" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Occupation</th>
+            <th>Job Title</th>
+            <th>Phone Number</th>
+            <th>Email</th> 
+            <th>ID Type</th>
+            <th>ID No.</th>
+            <th>Physical Address</th>
+            <th>Check-In</th>
+            <th>Check-Out</th>
+            
+
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for attendance in attendances %}
+        <tr>
+            <td>{{loop.index}}</td>
+            <td>{{ attendance.visitor.first_name }} {{ attendance.visitor.middle_name }} {{ attendance.visitor.surname}}</td>
+            <td>{{ attendance.visitor.ocupation}}</td>
+            <td>{{ attendance.visitor.job_title}}</td>
+            <td>{{ attendance.visitor.phone_number}}</td>
+            <td>{{ attendance.visitor.email}}</td>
+            <td>{{ attendance.visitor.id_type}}</td>
+            <td>{{ attendance.visitor.id_no}}</td>
+            <td>{{ attendance.visitor.pob}}</td>
+            <td>{{ attendance.visitor.physical_address}}</td>
+            <td>{{ attendance.time_in }}</td>
+            <td>{{ attendance.time_out }}</td>
+            
+        </tr>
+        {% endfor %}
+            
+    </tbody>
+</table>

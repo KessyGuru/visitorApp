@@ -15,8 +15,6 @@ class AppointmentModel(db.Model):
 
     # relationship
     visitor_id = db.Column(db.Integer, db.ForeignKey("visitors.id"))
-    visitor = db.relationship("VisitorModel", back_populates="appointments")
 
     employee_id = db.Column(db.Integer, db.ForeignKey("employee.id"))
-    employee = db.relationship("EmployeeModel", back_populates="appointment")
 

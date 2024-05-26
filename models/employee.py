@@ -16,6 +16,6 @@ class EmployeeModel(db.Model):
     ext_number = db.Column(db.String(20), nullable=True)
 
     # relation ship with appointment
-    appointment = db.relationship("AppointmentModel", back_populates="employee")
+    appointment = db.relationship("AppointmentModel", backref="employee", lazy="dynamic")
 
-    attendance = db.relationship("AttendanceModel", back_populates="employee")
+    attendance = db.relationship("AttendanceModel", backref="employee", lazy="dynamic")

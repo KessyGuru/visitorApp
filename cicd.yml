@@ -1,0 +1,47 @@
+name: VISITOAPP DEPLOYMENT WORKFLOW - DEVELOPMENT-(CI/CD)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up python
+      uses: actions/setup-node@v3
+      with:
+        python-version: '3.x' 
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+
+    - name: Copy repository contents via scp
+      uses: appleboy/scp-action@master
+      with:
+        HOST: ${{ secrets.HOST }}
+        USERNAME: ${{ secrets.USERNAME }}
+        PORT: ${{ secrets.PORT }}
+        KEY: ${{ secrets.SSHKEY }}
+        source: "."
+        target: "/home/visitorApp/"
+
+    - name: Build Docker image
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        USERNAME: ${{ secrets.USERNAME }}
+        PORT: ${{ secrets.PORT }}
+        KEY: ${{ secrets.SSHKEY }}
+        script: |
+          cd /home/visitorApp/
+          docker ps -a --quiet --filter "label=visitor-app" | xargs -r docker rm --force
+          docker rmi visitor-app --force
+          docker build -t visitor-app .
+          docker run --network host --label visitor-app -d visitor-app

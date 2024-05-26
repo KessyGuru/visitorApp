@@ -40,6 +40,7 @@ class GetVisitorSchema(Schema):
     visitor_id = fields.Str(required=True) 
 
 class EmployeeSchema(Schema):
+    id = fields.Str(dump_only=True)
     # id = fields.Str(fields.Integer, primary_key=True)
     first_name = fields.Str(required=True)
     middle_name = fields.Str()
@@ -53,7 +54,8 @@ class EmployeeSchema(Schema):
     ext_number = fields.Str()
 
 
-class AppointmentSchema(Schema):
+class AppointmentSchemaCreate(Schema):
+    id = fields.Str(dump_only=True)
     visitor_id = fields.Str(required=True)
     employee_id = fields.Str(required=True)
 
@@ -61,6 +63,16 @@ class AppointmentSchema(Schema):
     desc = fields.Str()
     appointment_date = fields.DateTime(required=True)
     location = fields.Str(required=True)
+
+class AppointmentSchemaUpdate(Schema):
+    id = fields.Str(dump_only=True)
+    visitor_id = fields.Str(required=False)
+    employee_id = fields.Str(required=False)
+
+    title = fields.Str(required=False)
+    desc = fields.Str()
+    appointment_date = fields.DateTime(required=False)
+    location = fields.Str(required=False)
 
 
 class AttendanceSchema(Schema):
