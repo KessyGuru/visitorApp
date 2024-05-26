@@ -3,7 +3,7 @@ name: VISITOAPP DEPLOYMENT WORKFLOW - DEVELOPMENT-(CI/CD)
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
