@@ -40,8 +40,8 @@ def create_app(db_url=None):
     csrf = CSRFProtect(app)
 
     ## Normal Endpoints
-    # app.register_blueprint(VisitorViewBlueprint)
-    # app.register_blueprint(AttendanceViewBlueprint)
+    app.register_blueprint(VisitorViewBlueprint)
+    app.register_blueprint(AttendanceViewBlueprint)
     db.init_app(app)
     migrate = Migrate(app, db)
     api = Api(app)
